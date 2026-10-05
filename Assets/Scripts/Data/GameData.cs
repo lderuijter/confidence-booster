@@ -6,11 +6,11 @@ namespace Data
     [Serializable]
     public class GameData
     {
-        public int coins = 0;
+        public int coins;
         public string lastAchievementDate = "";
 
-        public List<AchievementData> achievements = new List<AchievementData>();
-        public List<string> inventoryItemIds = new List<string>();
+        public List<AchievementData> achievements = new();
+        public List<string> inventoryItemIds = new();
     }
 
     [Serializable]
