@@ -8,7 +8,6 @@ namespace Data
     {
         public int coins;
         public string lastAchievementDate = "";
-
         public List<AchievementData> achievements = new();
         public List<string> inventoryItemIds = new();
     }
