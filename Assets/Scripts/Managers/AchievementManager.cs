@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Data;
 using UnityEngine;
 
@@ -20,6 +21,8 @@ namespace Managers
         private GameData _data;
 
         public int Coins => _data.coins;
+        
+        public List<AchievementData> Achievements => _data.achievements;
 
         // Wordt afgevuurd als de coins veranderen, zodat de UI zich kan bijwerken
         public event Action<int> CoinsChanged;
