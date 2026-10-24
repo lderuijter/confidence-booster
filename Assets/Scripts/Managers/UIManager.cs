@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 namespace Managers
 {
@@ -10,11 +11,23 @@ namespace Managers
         [SerializeField] private GameObject shopPanel;
         [SerializeField] private GameObject inventoryPanel;
 
+        [SerializeField] private Button homeButton;
+        [SerializeField] private Button addAchievementButton;
+        [SerializeField] private Button historyButton;
+        [SerializeField] private Button shopButton;
+        [SerializeField] private Button inventoryButton;
+
         private GameObject[] _panels;
 
         private void Awake()
         {
             _panels = new[] { homePanel, addAchievementPanel, historyPanel, shopPanel, inventoryPanel };
+
+            homeButton.onClick.AddListener(ShowHome);
+            addAchievementButton.onClick.AddListener(ShowAddAchievement);
+            historyButton.onClick.AddListener(ShowHistory);
+            shopButton.onClick.AddListener(ShowShop);
+            inventoryButton.onClick.AddListener(ShowInventory);
         }
 
         private void Start()
