@@ -10,7 +10,9 @@ namespace Managers
         EmptyDescription,
         AlreadyAddedToday
     }
-
+    
+    // Draait eerder dan andere scripts, zodat de data al geladen is als het home-scherm de coins opvraagt
+    [DefaultExecutionOrder(-100)]
     public class AchievementManager : MonoBehaviour
     {
         private const int CoinsPerAchievement = 10;
