@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
+using Data;
 using UnityEngine;
 
-namespace Data
+namespace Managers
 {
     public static class SaveManager
     {
