@@ -1,45 +1,24 @@
 
 using Managers;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Screens
 {
-    [RequireComponent(typeof(UIDocument))]
     public class InventoryScreen : MonoBehaviour
     {
         [SerializeField] private InventoryManager inventoryManager;
-
-        private UIDocument _document;
-        private ScrollView _content;
-        private Label _emptyInventoryText;
+        [SerializeField] private Transform content;
+        [SerializeField] private GameObject itemPrefab;
+        [SerializeField] private GameObject emptyInventoryText;
 
         private void OnEnable()
         {
-            _document = GetComponent<UIDocument>();
-
-            VisualElement root = _document.rootVisualElement;
-
-            _content = root.Q<ScrollView>("inventory-items");
-            _emptyInventoryText = root.Q<Label>("inventory-empty");
-
             if (inventoryManager == null)
             {
-                Debug.LogError(
-                    "InventoryScreen heeft geen InventoryManager.",
-                    this);
+                Debug.LogError("InventoryScreen heeft geen InventoryManager.");
                 return;
             }
-
-            if (_content == null || _emptyInventoryText == null)
-            {
-                Debug.LogError(
-                    "InventoryScreen mist UI-elementen in de UXML.",
-                    this);
-                return;
-            }
-
-            ConfigureGrid(_content);
 
             inventoryManager.InventoryChanged += RefreshInventory;
             RefreshInventory();
@@ -53,55 +32,54 @@ namespace Screens
             }
         }
 
-        private void ConfigureGrid(ScrollView scrollView)
-        {
-            scrollView.contentContainer.style.flexDirection =
-                FlexDirection.Row;
-
-            scrollView.contentContainer.style.flexWrap = Wrap.Wrap;
-
-            scrollView.contentContainer.style.alignContent =
-                Align.FlexStart;
-        }
-
         private void RefreshInventory()
         {
-            if (_content == null || inventoryManager == null ||
-                _emptyInventoryText == null)
+            if (content == null || itemPrefab == null)
             {
+                Debug.LogError(
+                    "InventoryScreen mist Content of Item Prefab.");
                 return;
             }
 
-            _content.Clear();
+            foreach (Transform child in content)
+            {
+                Destroy(child.gameObject);
+            }
 
             var items = inventoryManager.OwnedItems;
-            bool isEmpty = items.Count == 0;
 
-            _content.style.display =
-                isEmpty ? DisplayStyle.None : DisplayStyle.Flex;
-
-            _emptyInventoryText.style.display =
-                isEmpty ? DisplayStyle.Flex : DisplayStyle.None;
+            if (emptyInventoryText != null)
+            {
+                emptyInventoryText.SetActive(items.Count == 0);
+            }
 
             foreach (var item in items)
             {
-                var card = new VisualElement();
-                card.AddToClassList("item-card");
+                GameObject itemObject = Instantiate(itemPrefab, content);
+                Transform itemTransform = itemObject.transform;
 
-                var nameLabel = new Label(item.itemName);
-                nameLabel.AddToClassList("item-title");
+                TMP_Text nameText =
+                    itemTransform.Find("ItemNameText")?.GetComponent<TMP_Text>();
 
-                var descriptionLabel = new Label(item.description);
-                descriptionLabel.AddToClassList("item-description");
+                TMP_Text descriptionText =
+                    itemTransform.Find("DescriptionText")?.GetComponent<TMP_Text>();
 
-                var priceLabel = new Label($"{item.price} coins");
-                priceLabel.AddToClassList("item-price");
+                TMP_Text priceText =
+                    itemTransform.Find("PriceText")?.GetComponent<TMP_Text>();
 
-                card.Add(nameLabel);
-                card.Add(descriptionLabel);
-                card.Add(priceLabel);
+                if (nameText == null || descriptionText == null ||
+                    priceText == null)
+                {
+                    Debug.LogError(
+                        "InventoryItemPrefab mist een verwacht tekstveld.",
+                        itemObject);
 
-                _content.Add(card);
+                    continue;
+                }
+
+                nameText.text = item.itemName;
+                descriptionText.text = item.description;
+                priceText.text = $"{item.price} coins";
             }
         }
     }
