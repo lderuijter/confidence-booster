@@ -1,28 +1,49 @@
 
 using Managers;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 namespace Screens
 {
+    [RequireComponent(typeof(UIDocument))]
     public class ShopScreen : MonoBehaviour
     {
         [SerializeField] private ShopManager shopManager;
-        [SerializeField] private Transform content;
-        [SerializeField] private GameObject itemPrefab;
-        [SerializeField] private TMP_Text coinsText;
-        [SerializeField] private TMP_Text messageText;
+
+        private UIDocument _document;
+        private Label _coinsText;
+        private Label _messageText;
+        private ScrollView _content;
 
         private void OnEnable()
         {
+            _document = GetComponent<UIDocument>();
+
+            VisualElement root = _document.rootVisualElement;
+
+            _coinsText = root.Q<Label>("coin-balance");
+            _messageText = root.Q<Label>("shop-feedback");
+            _content = root.Q<ScrollView>("shop-items");
+
             if (shopManager == null)
             {
-                Debug.LogError("ShopScreen heeft geen ShopManager.");
+                Debug.LogError("ShopScreen heeft geen ShopManager.", this);
                 return;
             }
 
+            if (_coinsText == null || _messageText == null ||
+                _content == null)
+            {
+                Debug.LogError(
+                    "ShopScreen mist UI-elementen in de UXML.",
+                    this);
+                return;
+            }
+
+            ConfigureGrid(_content);
+
             shopManager.CoinsChanged += UpdateCoins;
+
             UpdateCoins(shopManager.Coins);
             RefreshShop();
         }
@@ -35,71 +56,63 @@ namespace Screens
             }
         }
 
+        private void ConfigureGrid(ScrollView scrollView)
+        {
+            scrollView.contentContainer.style.flexDirection =
+                FlexDirection.Row;
+
+            scrollView.contentContainer.style.flexWrap = Wrap.Wrap;
+
+            scrollView.contentContainer.style.alignContent =
+                Align.FlexStart;
+        }
+
         private void UpdateCoins(int coins)
         {
-            if (coinsText != null)
+            if (_coinsText != null)
             {
-                coinsText.text = $"Coins: {coins}";
+                _coinsText.text = $"Coins: {coins}";
             }
         }
 
         private void RefreshShop()
         {
-            if (content == null || itemPrefab == null)
+            if (_content == null || shopManager == null)
             {
-                Debug.LogError("ShopScreen mist Content of Item Prefab.");
                 return;
             }
 
-            foreach (Transform child in content)
-            {
-                Destroy(child.gameObject);
-            }
+            _content.Clear();
 
             foreach (var item in shopManager.Items)
             {
-                GameObject itemObject = Instantiate(itemPrefab, content);
-                Transform itemTransform = itemObject.transform;
-
-                TMP_Text nameText =
-                    itemTransform.Find("ItemNameText")?.GetComponent<TMP_Text>();
-
-                TMP_Text descriptionText =
-                    itemTransform.Find("DescriptionText")?.GetComponent<TMP_Text>();
-
-                TMP_Text priceText =
-                    itemTransform.Find("PriceText")?.GetComponent<TMP_Text>();
-
-                Button button =
-                    itemTransform.Find("BuyButton")?.GetComponent<Button>();
-
-                if (nameText == null || descriptionText == null ||
-                    priceText == null || button == null)
-                {
-                    Debug.LogError(
-                        "ShopItemPrefab mist een verwacht tekstveld of BuyButton.",
-                        itemObject);
-
-                    continue;
-                }
-
-                nameText.text = item.itemName;
-                descriptionText.text = item.description;
-                priceText.text = $"{item.price} coins";
-
-                bool isOwned = shopManager.IsOwned(item.id);
-                button.interactable = !isOwned;
-
-                TMP_Text buttonText =
-                    button.GetComponentInChildren<TMP_Text>();
-
-                if (buttonText != null)
-                {
-                    buttonText.text = isOwned ? "Gekocht" : "Kopen";
-                }
-
                 string itemId = item.id;
-                button.onClick.AddListener(() => PurchaseItem(itemId));
+                bool isOwned = shopManager.IsOwned(itemId);
+
+                var card = new VisualElement();
+                card.AddToClassList("item-card");
+
+                var nameLabel = new Label(item.itemName);
+                nameLabel.AddToClassList("item-title");
+
+                var descriptionLabel = new Label(item.description);
+                descriptionLabel.AddToClassList("item-description");
+
+                var priceLabel = new Label($"{item.price} coins");
+                priceLabel.AddToClassList("item-price");
+
+                var buyButton = new Button();
+                buyButton.AddToClassList("item-button");
+                buyButton.text = isOwned ? "Gekocht" : "Kopen";
+                buyButton.SetEnabled(!isOwned);
+                buyButton.clicked += () => PurchaseItem(itemId);
+
+                card.Add(nameLabel);
+                card.Add(descriptionLabel);
+                card.Add(priceLabel);
+                card.Add(buyButton);
+
+                _content.Add(card);
             }
         }
 
@@ -132,9 +145,9 @@ namespace Screens
 
         private void ShowMessage(string message)
         {
-            if (messageText != null)
+            if (_messageText != null)
             {
-                messageText.text = message;
+                _messageText.text = message;
             }
         }
     }

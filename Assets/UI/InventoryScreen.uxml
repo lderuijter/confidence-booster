@@ -1,0 +1,20 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="InventoryScreen.uss" />
+
+    <ui:VisualElement name="inventory-root" class="screen">
+
+        <ui:Label
+            text="Inventory"
+            class="screen-title" />
+
+        <ui:ScrollView
+            name="inventory-items"
+            class="items-container" />
+
+        <ui:Label
+            name="inventory-empty"
+            text="Je hebt nog geen items gekocht."
+            class="empty-message" />
+
+    </ui:VisualElement>
+</ui:UXML>

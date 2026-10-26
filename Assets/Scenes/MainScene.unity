@@ -3435,6 +3435,7 @@ GameObject:
   - component: {fileID: 1274152752}
   - component: {fileID: 1274152754}
   - component: {fileID: 1274152753}
+  - component: {fileID: 1274152755}
   m_Layer: 5
   m_Name: ShopPanel
   m_TagString: Untagged
@@ -3500,6 +3501,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1274152751}
   m_CullTransparentMesh: 1
+--- !u!114 &1274152755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274152751}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 92e97d405f1319515a76f33fa51eb081, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 1b932b85d3bb4b3c8e159307bc38c11b, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1 &1380273442
 GameObject:
   m_ObjectHideFlags: 0
@@ -3648,6 +3672,7 @@ GameObject:
   - component: {fileID: 1406844598}
   - component: {fileID: 1406844600}
   - component: {fileID: 1406844599}
+  - component: {fileID: 1406844601}
   m_Layer: 5
   m_Name: InventoryPanel
   m_TagString: Untagged
@@ -3713,6 +3738,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1406844597}
   m_CullTransparentMesh: 1
+--- !u!114 &1406844601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406844597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.dll::UnityEngine.UIElements.UIDocument
+  m_PanelSettings: {fileID: 11400000, guid: 92e97d405f1319515a76f33fa51eb081, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 549696903ecd4cc9accd746aa61ea7ae, type: 3}
+  m_SortingOrder: 0
+  m_Position: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+  m_PivotReferenceSize: 0
+  m_Pivot: 0
+  m_WorldSpaceCollider: {fileID: 0}
 --- !u!1 &1484309747
 GameObject:
   m_ObjectHideFlags: 0
