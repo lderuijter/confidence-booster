@@ -1,3 +1,4 @@
+
 using Managers;
 using TMPro;
 using UnityEngine;
@@ -7,84 +8,134 @@ namespace Screens
 {
     public class ShopScreen : MonoBehaviour
     {
-        // De manager die de shop-items en aankopen beheert.
         [SerializeField] private ShopManager shopManager;
-
-        // Het object in de Scroll View waar de shop-items in komen.
         [SerializeField] private Transform content;
-
-        // Het prefab dat we kopiëren voor ieder shop-item.
         [SerializeField] private GameObject itemPrefab;
+        [SerializeField] private TMP_Text coinsText;
+        [SerializeField] private TMP_Text messageText;
 
-        // Unity roept dit aan wanneer het shop-panel zichtbaar wordt.
         private void OnEnable()
         {
-            // Verwijder oude items om dubbele items te voorkomen.
+            if (shopManager == null)
+            {
+                Debug.LogError("ShopScreen heeft geen ShopManager.");
+                return;
+            }
+
+            shopManager.CoinsChanged += UpdateCoins;
+            UpdateCoins(shopManager.Coins);
+            RefreshShop();
+        }
+
+        private void OnDisable()
+        {
+            if (shopManager != null)
+            {
+                shopManager.CoinsChanged -= UpdateCoins;
+            }
+        }
+
+        private void UpdateCoins(int coins)
+        {
+            if (coinsText != null)
+            {
+                coinsText.text = $"Coins: {coins}";
+            }
+        }
+
+        private void RefreshShop()
+        {
+            if (content == null || itemPrefab == null)
+            {
+                Debug.LogError("ShopScreen mist Content of Item Prefab.");
+                return;
+            }
+
             foreach (Transform child in content)
             {
                 Destroy(child.gameObject);
             }
 
-            // Loop door alle beschikbare shop-items.
-            foreach (var shopItem in shopManager.Items)
+            foreach (var item in shopManager.Items)
             {
-                // Maak een kopie van het prefab in de Scroll View.
                 GameObject itemObject = Instantiate(itemPrefab, content);
+                Transform itemTransform = itemObject.transform;
 
-                // Zoek de teksten en knop in het aangemaakte item.
-                TMP_Text[] texts = itemObject.GetComponentsInChildren<TMP_Text>();
-                Button button = itemObject.GetComponentInChildren<Button>();
+                TMP_Text nameText =
+                    itemTransform.Find("ItemNameText")?.GetComponent<TMP_Text>();
 
-                // Vul de naam, beschrijving en prijs in.
-                texts[0].text = shopItem.itemName;
-                texts[1].text = shopItem.description;
-                texts[2].text = $"{shopItem.price} coins";
+                TMP_Text descriptionText =
+                    itemTransform.Find("DescriptionText")?.GetComponent<TMP_Text>();
 
-                // Controleer of het item al gekocht is.
-                bool isOwned = shopManager.IsOwned(shopItem.id);
+                TMP_Text priceText =
+                    itemTransform.Find("PriceText")?.GetComponent<TMP_Text>();
 
-                // Pas de knop aan als het item al gekocht is.
+                Button button =
+                    itemTransform.Find("BuyButton")?.GetComponent<Button>();
+
+                if (nameText == null || descriptionText == null ||
+                    priceText == null || button == null)
+                {
+                    Debug.LogError(
+                        "ShopItemPrefab mist een verwacht tekstveld of BuyButton.",
+                        itemObject);
+
+                    continue;
+                }
+
+                nameText.text = item.itemName;
+                descriptionText.text = item.description;
+                priceText.text = $"{item.price} coins";
+
+                bool isOwned = shopManager.IsOwned(item.id);
                 button.interactable = !isOwned;
 
-                TMP_Text buttonText = button.GetComponentInChildren<TMP_Text>();
-                buttonText.text = isOwned ? "Gekocht" : "Kopen";
+                TMP_Text buttonText =
+                    button.GetComponentInChildren<TMP_Text>();
 
-                // Koppel de aankoop aan de knop.
-                string itemId = shopItem.id;
+                if (buttonText != null)
+                {
+                    buttonText.text = isOwned ? "Gekocht" : "Kopen";
+                }
+
+                string itemId = item.id;
                 button.onClick.AddListener(() => PurchaseItem(itemId));
             }
         }
 
-        // Probeert het geselecteerde item te kopen.
         private void PurchaseItem(string itemId)
         {
-            ShopManager.PurchaseResult result = shopManager.TryPurchase(itemId);
+            ShopManager.PurchaseResult result =
+                shopManager.TryPurchase(itemId);
 
             switch (result)
             {
                 case ShopManager.PurchaseResult.Success:
-                    // Vernieuw de shop zodat het item als gekocht wordt getoond.
+                    ShowMessage("Aankoop gelukt!");
                     RefreshShop();
                     break;
 
                 case ShopManager.PurchaseResult.NotEnoughCoins:
-                    Debug.Log("Je hebt niet genoeg coins.");
+                    ShowMessage("Je hebt niet genoeg coins.");
                     break;
 
                 case ShopManager.PurchaseResult.ItemAlreadyOwned:
-                    Debug.Log("Je hebt dit item al gekocht.");
+                    ShowMessage("Je hebt dit item al gekocht.");
+                    RefreshShop();
                     break;
 
                 case ShopManager.PurchaseResult.InvalidItem:
-                    Debug.LogWarning("Dit shop-item bestaat niet.");
+                    ShowMessage("Dit shop-item bestaat niet.");
                     break;
             }
         }
 
-        // Bouwt de lijst opnieuw op met de actuele gegevens.
-        private void RefreshShop()
+        private void ShowMessage(string message)
         {
-            OnEnable();
+            if (messageText != null)
+            {
+                messageText.text = message;
+            }
         }
     }
 }
