@@ -11,19 +11,6 @@ Een Windows-game in Unity (C#) voor positieve zelfreflectie. De speler registree
 
 De game heeft geen speelbaar personage. Alles gebeurt in één scene met vijf panels: Home, Prestatie toevoegen, Historie, Shop en Inventory.
 
-## Status
-
-- [x] Projectopzet en datamodel
-- [x] Opslag van speldata
-- [x] UI-opzet en navigatie
-- [x] Prestatiesysteem en coinbeloningen
-- [x] Home-scherm
-- [x] Historie
-- [ ] Layout van alle panels verbeteren
-- [ ] Shop
-- [ ] Inventory
-- [ ] Windows-build (.exe)
-
 ## Techstack
 
 - Unity 6.3 LTS
