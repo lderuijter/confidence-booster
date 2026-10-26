@@ -24,6 +24,7 @@ De game heeft geen speelbaar personage. Alles gebeurt in één scene met vijf pa
 ```
 Assets/
   Scenes/MainScene.unity    de enige scene
+  Resources/                Json bestanden voor de game
   Scripts/
     Data/                   datamodel (GameData, AchievementData)
     Managers/               logica (SaveManager, AchievementManager, UIManager)
