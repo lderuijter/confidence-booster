@@ -1,0 +1,125 @@
+
+{
+  "items": [
+    {
+      "id": "item_001",
+      "itemName": "Ster",
+      "description": "Een kleine herinnering aan je vooruitgang.",
+      "price": 20
+    },
+    {
+      "id": "item_002",
+      "itemName": "Diamant",
+      "description": "Een symbool voor je doorzettingsvermogen.",
+      "price": 30
+    },
+    {
+      "id": "item_003",
+      "itemName": "Trofee",
+      "description": "Vier een prestatie waar je trots op bent.",
+      "price": 50
+    },
+    {
+      "id": "item_004",
+      "itemName": "Zon",
+      "description": "Een zonnige herinnering aan een goede dag.",
+      "price": 15
+    },
+    {
+      "id": "item_005",
+      "itemName": "Maan",
+      "description": "Een symbool voor rust en reflectie.",
+      "price": 15
+    },
+    {
+      "id": "item_006",
+      "itemName": "Hart",
+      "description": "Een herinnering om lief voor jezelf te zijn.",
+      "price": 20
+    },
+    {
+      "id": "item_007",
+      "itemName": "Regenboog",
+      "description": "Elke stap vooruit telt.",
+      "price": 25
+    },
+    {
+      "id": "item_008",
+      "itemName": "Bloem",
+      "description": "Blijf groeien op je eigen tempo.",
+      "price": 20
+    },
+    {
+      "id": "item_009",
+      "itemName": "Bliksem",
+      "description": "Voor momenten waarop je kracht toont.",
+      "price": 30
+    },
+    {
+      "id": "item_010",
+      "itemName": "Kroon",
+      "description": "Je mag trots zijn op jezelf.",
+      "price": 60
+    },
+    {
+      "id": "item_011",
+      "itemName": "Schild",
+      "description": "Een symbool voor innerlijke kracht.",
+      "price": 35
+    },
+    {
+      "id": "item_012",
+      "itemName": "Raket",
+      "description": "Blijf vooruitgaan, stap voor stap.",
+      "price": 40
+    },
+    {
+      "id": "item_013",
+      "itemName": "Vlinder",
+      "description": "Verandering begint met kleine stappen.",
+      "price": 25
+    },
+    {
+      "id": "item_014",
+      "itemName": "Berg",
+      "description": "Elke uitdaging is een kans om te groeien.",
+      "price": 45
+    },
+    {
+      "id": "item_015",
+      "itemName": "Komeet",
+      "description": "Laat je vooruitgang zichtbaar zijn.",
+      "price": 35
+    },
+    {
+      "id": "item_016",
+      "itemName": "Blad",
+      "description": "Geef jezelf de ruimte om te groeien.",
+      "price": 15
+    },
+    {
+      "id": "item_017",
+      "itemName": "Medaille",
+      "description": "Erken de moeite die je hebt gedaan.",
+      "price": 40
+    },
+    {
+      "id": "item_018",
+      "itemName": "Kristal",
+      "description": "Iedereen heeft zijn eigen kwaliteiten.",
+      "price": 45
+    },
+    {
+      "id": "item_019",
+      "itemName": "Vuur",
+      "description": "Houd je motivatie levend.",
+      "price": 30
+    },
+    {
+      "id": "item_020",
+      "itemName": "Planeet",
+      "description": "Er is altijd ruimte voor nieuwe doelen.",
+      "price": 50
+    }
+  ]
+}

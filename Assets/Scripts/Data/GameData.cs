@@ -18,4 +18,13 @@ namespace Data
         public string description;
         public string date;
     }
+    
+    [Serializable]
+    public class ShopItemData
+    {
+        public string id;
+        public string itemName;
+        public string description;
+        public int price;
+    }
 }
