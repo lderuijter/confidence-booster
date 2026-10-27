@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +6,8 @@ using UnityEngine;
 
 namespace Managers
 {
+    // Draait eerder dan andere scripts, zodat de items al geladen zijn als de inventory ze opvraagt
+    [DefaultExecutionOrder(-100)]
     public class ShopManager : MonoBehaviour
     {
         // Wrapper die Unity gebruikt om de JSON-lijst in te lezen.
@@ -16,7 +17,6 @@ namespace Managers
             public List<ShopItemData> items;
         }
 
-        private GameData _data;
         private List<ShopItemData> _items = new();
 
         public enum PurchaseResult
@@ -30,23 +30,15 @@ namespace Managers
         // De items die uit het JSON-bestand zijn geladen.
         public IReadOnlyList<ShopItemData> Items => _items;
 
-        // Gedeelde gegevens die door SaveManager worden bewaard.
-        public int Coins => _data.coins;
-        public List<string> InventoryItemIds => _data.inventoryItemIds;
+        // Gedeelde gegevens die door GameSession worden bewaard.
+        public int Coins => GameSession.Current.coins;
+        public List<string> InventoryItemIds => GameSession.Current.inventoryItemIds;
 
         public event Action<int> CoinsChanged;
         public event Action InventoryChanged;
 
         private void Awake()
         {
-            _data = SaveManager.Load();
-
-            // Zorg dat de inventorylijst beschikbaar is.
-            if (_data.inventoryItemIds == null)
-            {
-                _data.inventoryItemIds = new List<string>();
-            }
-
             LoadShopItems();
         }
 
@@ -99,17 +91,19 @@ namespace Managers
                 return PurchaseResult.ItemAlreadyOwned;
             }
 
-            if (_data.coins < item.price)
+            GameData data = GameSession.Current;
+
+            if (data.coins < item.price)
             {
                 return PurchaseResult.NotEnoughCoins;
             }
 
-            _data.coins -= item.price;
-            _data.inventoryItemIds.Add(itemId);
+            data.coins -= item.price;
+            data.inventoryItemIds.Add(itemId);
 
-            SaveManager.Save(_data);
+            GameSession.Save();
 
-            CoinsChanged?.Invoke(_data.coins);
+            CoinsChanged?.Invoke(data.coins);
             InventoryChanged?.Invoke();
 
             return PurchaseResult.Success;
@@ -118,7 +112,7 @@ namespace Managers
         // Controleert of de speler dit item al bezit.
         public bool IsOwned(string itemId)
         {
-            return _data.inventoryItemIds.Contains(itemId);
+            return GameSession.Current.inventoryItemIds.Contains(itemId);
         }
     }
 }
