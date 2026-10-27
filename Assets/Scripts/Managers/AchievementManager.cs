@@ -11,26 +11,17 @@ namespace Managers
         EmptyDescription,
         AlreadyAddedToday
     }
-    
-    // Draait eerder dan andere scripts, zodat de data al geladen is als het home-scherm de coins opvraagt
-    [DefaultExecutionOrder(-100)]
+
     public class AchievementManager : MonoBehaviour
     {
         private const int CoinsPerAchievement = 10;
 
-        private GameData _data;
+        public int Coins => GameSession.Current.coins;
 
-        public int Coins => _data.coins;
-        
-        public List<AchievementData> Achievements => _data.achievements;
+        public List<AchievementData> Achievements => GameSession.Current.achievements;
 
         // Wordt afgevuurd als de coins veranderen, zodat de UI zich kan bijwerken
         public event Action<int> CoinsChanged;
-
-        private void Awake()
-        {
-            _data = SaveManager.Load();
-        }
 
         private string Today()
         {
@@ -39,7 +30,7 @@ namespace Managers
 
         public bool HasAddedToday()
         {
-            return _data.lastAchievementDate == Today();
+            return GameSession.Current.lastAchievementDate == Today();
         }
 
         // Probeert een prestatie toe te voegen en geeft terug wat er is gebeurd
@@ -56,16 +47,18 @@ namespace Managers
                 return AddAchievementResult.AlreadyAddedToday;
             }
 
+            GameData data = GameSession.Current;
+
             AchievementData achievement = new AchievementData();
             achievement.description = description.Trim();
             achievement.date = Today();
-            _data.achievements.Add(achievement);
+            data.achievements.Add(achievement);
 
-            _data.lastAchievementDate = Today();
-            _data.coins += CoinsPerAchievement;
+            data.lastAchievementDate = Today();
+            data.coins += CoinsPerAchievement;
 
-            SaveManager.Save(_data);
-            CoinsChanged?.Invoke(_data.coins);
+            GameSession.Save();
+            CoinsChanged?.Invoke(data.coins);
 
             return AddAchievementResult.Success;
         }
