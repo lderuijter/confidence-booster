@@ -7,7 +7,7 @@ Een Windows-game in Unity (C#) voor positieve zelfreflectie. De speler registree
 - De speler registreert maximaal één prestatie per dag en verdient daarvoor 10 coins.
 - Het home-scherm toont het aantal coins.
 - De historie toont alle prestaties met datum, de nieuwste bovenaan.
-- Met coins koop je items in de shop, die in de inventory komen (nog in ontwikkeling).
+- Met coins koop je items in de shop, die in de inventory komen. 
 
 De game heeft geen speelbaar personage. Alles gebeurt in één scene met vijf panels: Home, Prestatie toevoegen, Historie, Shop en Inventory.
 
