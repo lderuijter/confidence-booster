@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.IO;
 using Data;
 using UnityEngine;
@@ -32,6 +31,8 @@ namespace Managers
                 _data = new GameData();
                 return _data;
             }
+            
+            Debug.Log(FilePath);
 
             try
             {
