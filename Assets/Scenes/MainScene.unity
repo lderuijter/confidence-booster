@@ -1010,6 +1010,7 @@ GameObject:
   - component: {fileID: 271236233}
   - component: {fileID: 271236232}
   - component: {fileID: 271236234}
+  - component: {fileID: 271236235}
   m_Layer: 5
   m_Name: HomePanel
   m_TagString: Untagged
@@ -1093,6 +1094,32 @@ MonoBehaviour:
   achievementManager: {fileID: 459657690}
   coinsText: {fileID: 1738462485}
   todayText: {fileID: 1992811262}
+--- !u!114 &271236235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 271236230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.VerticalLayoutGroup
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 100
+    m_Bottom: 0
+  m_ChildAlignment: 1
+  m_Spacing: 30
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 0
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
 --- !u!1 &272081937
 GameObject:
   m_ObjectHideFlags: 0
@@ -1179,10 +1206,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 271236231}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 855.88, y: -711}
-  m_SizeDelta: {x: 814.4424, y: 242.9762}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 1000, y: 164.41}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &302791489
 MonoBehaviour:
@@ -5357,10 +5384,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 271236231}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 841.4397, y: -231}
-  m_SizeDelta: {x: 238.5953, y: 52.2702}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 202.61, y: 53.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1380273444
 MonoBehaviour:
@@ -6346,10 +6373,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 271236231}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 848.66, y: -351}
-  m_SizeDelta: {x: 800, y: 80}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 311.45, y: 53.63}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1738462485
 MonoBehaviour:
@@ -7187,10 +7214,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 271236231}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000015257, y: 93}
-  m_SizeDelta: {x: 710.8193, y: 86.3249}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 387.63, y: 40.22}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1992811262
 MonoBehaviour:
