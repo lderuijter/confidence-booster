@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Managers
 {
@@ -47,6 +48,15 @@ namespace Managers
             {
                 panel.SetActive(panel == target);
             }
+        }
+        
+        public void ResetProgress()
+        {
+            // Reset de opgeslagen voortgang.
+            GameSession.Reset();
+
+            // Herlaadt de scene zodat alle schermen worden bijgewerkt.
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

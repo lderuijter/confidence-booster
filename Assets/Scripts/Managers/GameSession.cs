@@ -16,6 +16,15 @@ namespace Managers
                 return _current;
             }
         }
+        
+        public static void Reset()
+        {
+            // Maakt een nieuwe GameData aan.
+            _current = new GameData();
+
+            // Slaat de nieuwe data direct op.
+            SaveManager.Save(_current);
+        }
 
         public static void Save()
         {
