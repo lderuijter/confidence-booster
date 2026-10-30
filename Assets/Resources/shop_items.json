@@ -28,7 +28,7 @@
       "id": "item_005",
       "itemName": "Maan",
       "description": "Een symbool voor rust en reflectie.",
-      "price": 10
+      "price": 5
     },
     {
       "id": "item_006",
@@ -64,7 +64,7 @@
       "id": "item_011",
       "itemName": "Schild",
       "description": "Een symbool voor innerlijke kracht.",
-      "price": 35
+      "price": 5
     },
     {
       "id": "item_012",
@@ -112,7 +112,7 @@
       "id": "item_019",
       "itemName": "Vuur",
       "description": "Houd je motivatie levend.",
-      "price": 30
+      "price": 5
     },
     {
       "id": "item_020",
